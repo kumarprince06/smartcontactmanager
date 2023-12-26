@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{normal/base::layout(~{::section})}">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>DashBoard</title>
+</head>
+
+<body>
+
+	<section>
+		<div id="card" class="container card" th:if="${contact}">
+			<div class="row justify-content-center">
+				<div class="col-md-8">
+					<div id="card" class="card mt-5">
+						<div class="card-header   text-center">
+							<h1>Contact Details</h1>
+						</div>
+						<div class="contactiner col-md-8 offset-md-2 text-center">
+							<div th:if="${session.message}" th:classappend="${session.message.type}" class="alert"
+								role="alert">
+								<th:block th:text="${session.message.content}"></th:block>
+							</div>
+							<!--<th:block th:text="${#session.removeAttribute('message')}"></th:block>-->
+							<th:block th:text="${@sessionHelper.removeMessageFromSession()}"></th:block>
+						</div>
+
+						<div class="card-body">
+							<div class="row">
+								<div class="col-md-4">
+									<div class="text-center mb-3 mt-3">
+										<img src="#" th:src="@{'/img/'+${contact.imageUrl}}" class="rounded" width="200"
+											height="200" alt="Profile Picture">
+									</div>
+
+
+								</div>
+								<div class="col-md-8 mt-3">
+									<h3 class=""><strong>Name : </strong><span
+											th:text="${contact.name+' ('+contact.nickName+')'}">Mark</span></h3>
+									<h5> <strong>#ID : </strong><span th:text="${'SCM2023-'+contact.cId}" class="">1
+										</span></h5>
+									<h5 class=""><strong>Work : </strong><span th:text="${contact.work}">Web Developer
+										</span></h5>
+									<!--<h5>Contact Details</h5>-->
+									<h5><strong>Email : </strong><span th:text="${contact.email}" class="">
+											johndoe@example.com</span></h5>
+									<h5><strong>Phone : </strong><span th:text="${contact.phone}" class="">
+											555-1234-5678</span></h5>
+								</div>
+								<div class="col-md-8 mt-3">
+									<h5><strong>Description</strong></h5>
+									<p th:utext="${contact.description}">Lorem ipsum dolor sit amet, consectetur
+										adipiscing elit. Nullam maximus metus non
+										luctus aliquet. Morbi sit amet sollicitudin Lacus porta mollis suscipit.</p>
+
+									</divclass="col-md-8 mt-3">
+								</div>
+							</div>
+							<div class="container text-center mt-4">
+								<div class="btn-group mt-2 md-2">
+									<a href="#" th:onclick="|deleteContact(${contact.cId})|"><button
+											class="btn btn-danger rounded"><i
+												class="fa-solid fa-trash"></i></button></a>
+									<form href="#" th:action="@{'/user/'+${contact.cId}+'/update'}" method="post">
+										<button class="btn btn-primary ml-2 rounded"><i
+												class="fa-solid fa-pen-to-square"></i></button></form>
+								</div>
+							</div>
+						</div>
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container text-center" th:unless="${contact}">
+			<h5 class="alert alert-danger"> You don't have persmission to see this contact..!! </h5>
+		</div>
+	</section>
+</body>
+
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{normal/base::layout(~{::section})}">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>DashBoard</title>
+</head>
+
+<body>
+
+	<section>
+		<div class="card mr-4 ml-4">
+			<div class="cardBody">
+				<div class="text-center">
+					<h1><i class="fa-regular fa-address-book"></i></i></h1>
+					<h1>Contacts</h1>
+				</div>
+				<div class="container col-md-8 offset-md-2 text-center">
+				<div th:if="${session.message}" th:classappend="${session.message.type}" class="alert"
+					role="alert">
+					<th:block  th:text="${session.message.content}" ></th:block>					
+				</div>
+				<!--<th:block th:text="${#session.removeAttribute('message')}"></th:block>-->
+				<th:block th:text="${@sessionHelper.removeMessageFromSession()}"></th:block>
+				</div>
+				<div class="search-container my-1 col-md-3">
+					<input onkeyup="search()" id="search-input" type="text" class="form-control" placeholder="Search your contact">
+					<div class="search-result">
+						<!-- result goes here -->
+						<h1>This is result</h1>
+					</div>
+				</div>
+				<div class="table-responsive">
+					<table class="table table-hover">
+						<thead class="thead-dark">
+							<tr>
+								<th scope="col" style="width: 14%;">#ID</th>
+								<th scope="col" style="width: 18%;">Name (Nickname)</th>
+								<th scope="col" style="width: 14%;">Email</th>
+								<th scope="col" style="width: 14%;">Phone</th>
+								<th scope="col" style="width: 14%;">Work</th>
+								<!-- <th scope="col">Profile</th> -->
+								<th scope="col" style="width: 14%;">Operation</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="c : ${contacts}">
+								<th th:text="${'SCM2023-'+c.cId}" scope="row">1</th>
+								<td>
+									<img style="width: 18%; border-radius: 50%; object-fit: cover;" class="img-fluid"
+										th:src="@{'/img/'+${c.imageUrl}}" alt="profileImg" />
+									<span th:text="${c.name+' ('+c.nickName+')'}">Mark</span>
+								</td>
+								<td th:text="${c.email}">@mdo</td>
+								<td th:text="${'+91-'+c.phone}">Otto</td>
+								<td th:text="${c.work}">@mdo</td>
+								<!-- <td th:text="${c.imageUrl}">@mdo</td> -->
+								<td>
+									<div class="btn-group">
+										<a href="#" th:onclick="|deleteContact(${c.cId})|" ><button
+												class="btn btn-danger btn-sm rounded"><i
+													class="fa-solid fa-trash"></i></button></a>
+										<form href="#" th:action="@{'/user/'+${c.cId}+'/update'}" method="post"><button
+												class="btn btn-primary btn-sm ml-1 rounded"><i
+													class="fa-solid fa-pen-to-square"></i></button></form>
+										<a th:href="@{'/user/'+${c.cId}+'/contact'}"><button
+												class="btn btn-secondary btn-sm ml-1 rounded"> <i
+													class="fa-solid fa-eye"></i> </button></a>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+
+					<!-- Pagination Work -->
+					<nav aria-label="Page navigation example"
+						class="d-flex justify-content-between justify-content-lg-end">
+						<ul class="pagination">
+							<li class="page-item">
+								<a class="page-link" th:if="${currentPage > 0}"
+									th:href="@{'/user/showContact/'+${currentPage-1}}" aria-label="Previous">
+									<span aria-hidden="true"><i class="fa-solid fa-circle-left"></i></span>
+									<span class="sr-only">Previous</span>
+								</a>
+							</li>
+
+							<li th:each="i : ${#numbers.sequence(1, totalPages)}" class="page-item">
+								<a class="page-link" th:href="@{'/user/showContact/'+${i-1}}"
+									th:classappend="${currentPage==i-1 ? 'active' : ''}">
+									<span th:text="${i}"></span>
+								</a>
+							</li>
+
+							<li class="page-item">
+								<a class="page-link" th:if="${currentPage + 1 != totalPages}"
+									th:href="@{'/user/showContact/'+${currentPage+1}}" aria-label="Next">
+									<span aria-hidden="true"><i class="fa-solid fa-circle-arrow-right"></i></span>
+									<span class="sr-only">Next</span>
+								</a>
+							</li>
+						</ul>
+					</nav>
+
+				</div>
+			</div>
+		</div>
+
+	</section>
+</body>
+
+</html>

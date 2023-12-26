@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  th:replace="~{normal/base::layout(~{::section})}"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DashBoard</title>
+  </head>
+
+  <body>
+    <section>
+      <div class="container userProfile">
+        <form th:action="@{/user/updateProfile}" method="post">
+          <div class="col-md-2">
+            <button class="btn btn-secondary btn-sm ml-1 rounded">
+              <i class="fa-solid fa-pen-to-square"></i>
+            </button>
+          </div>
+          <div class="container col-md-4 text-center">
+            <div class="profile-img text-center mt-1">
+              <img
+                src="" th:src="@{'/img/'+${user.image}}"
+                alt="profile img"
+              />
+              <!--<div class="file btn btn-lg btn-primary">
+                <i class="fa-solid fa-user-pen"></i>
+                <input type="file" name="file" />
+              </div>-->
+            </div>
+          </div>
+          <div class="profile-head">
+            <h2 style="text-align: center; color: white" th:text="${user.userName}">Kshiti Ghelani</h2>
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <li class="nav-item">
+                <a
+                  class="nav-link active"
+                  id="home-tab"
+                  data-toggle="tab"
+                  role="tab"
+                  aria-controls="home"
+                  aria-selected="true"
+                  >About</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="tab-content profile-tab" id="myTabContent">
+            <div class="tab-pane fade show active"id="home" role="tabpanel" aria-labelledby="home-tab">
+              <div class="row">
+                <div class="col-md-6 ">
+                  <label>User Id :</label>
+                </div>
+                <div class="col-md-6">
+                  <p th:text="${user.userId}">Kshiti123</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <label >Name :</label>
+                </div>
+                <div class="col-md-6">
+                  <p th:text="${user.userName}">Kshiti Ghelani</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <label >Email : </label>
+                </div>
+                <div class="col-md-6">
+                  <p th:text="${user.email}">kshitighelani@gmail.com</p>
+                </div>
+              </div>
+              <!-- <div class="row">
+                <div class="col-md-6">
+                  <label th:text="${user.phone}">Phone :</label>
+                </div>
+                <div class="col-md-6">
+                  <p>123 456 7890</p>
+                </div>
+              </div> -->
+			  <div class="row">
+                <div class="col-md-6">
+                  <label>Role :</label>
+                </div>
+                <div class="col-md-6">
+                  <p th:text="${user.role}">User</p>
+                </div>
+              </div>
+			  <div class="row">
+                <div class="col-md-6">
+                  <label>Account Active  :</label>
+                </div>
+                <div class="col-md-6">
+                  <p th:text="${user.activeStatus}">Yes</p>
+                </div>
+              </div>
+			  <div class="row">
+                <div class="col-md-6">
+                  <label>Description :</label>
+                </div>
+                <div class="col-md-6">
+                  <p th:text="${user.about}">Software Engineer</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+  </body>
+</html>

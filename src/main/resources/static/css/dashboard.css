@@ -1,0 +1,180 @@
+/* Sidebar */
+
+.sidebar{
+	width: 18%;
+	background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)) ,url("../img/dashboard.jpg");
+	background-color:aliceblue;
+	height: 100%;
+	position: fixed;
+	padding-top: 45px;
+	z-index: 99999999999999999999999999999999;
+}
+
+.sidebar a{
+	display: block;
+	width: 100%;
+	text-decoration: none;
+	padding: 10px 55px;
+	color: white;
+	
+	
+}
+
+.sidebar a:hover{
+	background-color: #e2e2e2;
+}
+
+.sidebar .divider{
+	height: 0.5px;
+	width: 100%;
+	background: #e2e2e2;
+	margin-top: 10px;
+}
+
+.sidebar .closebtn{
+	position: absolute;
+	top: 0px;
+	right: 15px;
+	font-size: 25px;
+	cursor: pointer;
+	color: white;
+}
+
+.sidebar img{
+	width: 60%;
+	margin-left: 25px;
+}
+
+@media only screen and ( max-width:600px){
+	.sidebar{
+		display: none;
+		width: 80% !important;
+		background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)) ,url("../img/dashboard.jpg");
+		height: 100vh;
+		position: fixed;
+		padding-top: 20px;
+	}
+	.content{
+		margin-left: 0%!important;
+	}
+}
+
+
+/* Content */
+.content{
+	margin-left: 20%;
+}
+
+
+/* Add New Contact Page  */
+.card{
+	color: #e2e2e2;
+	background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)) ,url("../img/addContactBG.jpg") no-repeat;
+	background-size: cover;
+}
+
+.card input, .card textarea{
+	background:  rgba(0,0,0,0.2);
+}
+
+/* Add this CSS to your stylesheet */
+#phone::-webkit-inner-spin-button,
+#phone::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+
+/*Contact Details*/
+
+#card{
+	color: #e2e2e2;
+	background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)) ,url("../img/contactDetailbg.jpg") no-repeat;
+	background-size: cover;
+}
+
+
+
+/*
+============================================================	Profile Section     ===================================================
+*/
+
+.userProfile{
+	padding: 1%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    border-radius: 0.5rem;
+    background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)) ,url("../img/contactDetailbg.jpg") no-repeat;
+	background-size: cover;
+}
+
+.profile-edit-btn{
+    border: none;
+    border-radius: 1.5rem;
+    width: 70%;
+    padding: 2%;
+    font-weight: 600;
+    color: #6c757d;
+    cursor: pointer;
+}
+
+.profile-img{
+    text-align: center;
+	
+}
+.profile-img img{
+    width: 49%;
+    height: 70%;
+	border-radius: 10px;
+}
+.profile-img .file {
+    position: relative;
+    overflow: hidden;
+    margin-top: -30%;
+	margin-left: 100px;
+    width: 40%;
+    border: none;
+    border-radius: 0;
+    font-size: 30px;
+    background: rgba(33, 37, 41, 0.1); /* Adjust the alpha component for transparency */
+    color: #ffffff; /* Set the text color */
+    padding: 10px; /* Adjust padding as needed */
+}
+
+.profile-img .file input {
+    position: absolute;
+    opacity: 0;
+    right: 0;
+    top: 0;
+}
+
+
+
+.profile-head .nav-tabs{
+    margin-bottom:3%;
+	margin-left: 10%;
+	margin-right: 10%;
+}
+.profile-head .nav-tabs .nav-link{
+    font-weight:700;
+    border: none;
+}
+.profile-head .nav-tabs .nav-link.active{
+    border: none;
+    border-bottom:2px solid #0062cc;
+}
+
+.profile-tab{
+	margin-left: 25%;
+	margin-right: 10%;
+	color: white;
+}
+
+.profile-tab label{
+    font-weight: 600;
+	font-size: 20px;
+}
+.profile-tab p{
+    font-weight: 600;
+    color: #e2e2e2;
+}

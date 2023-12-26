@@ -20,12 +20,13 @@ body{
 .form-bg {
 	width: 100%;
 	height: 93vh;
-	background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)) ,url("../img/banner.jpg");
+	background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)) ,url("../img/signupBg.jpg");
 	background-size: cover;
 	color: white;
+	position: relative;
 }
 
-.my-card input {
+.my-card input, .my-card textarea {
     background-color: rgba(255, 255, 255, 0.2);
     border: 1px solid #ced4da; 
 }
@@ -39,11 +40,54 @@ body{
     text-decoration: underline;
 }
 
+.alert {
+    max-height: 100px; /* Set an appropriate max height */
+    overflow-y: auto; /* Add scroll if content exceeds max height */
+}
+
+
+#contact .card:hover i,#contact .card:hover h4{
+	color: #87d37c;
+}
+
+#card-body {
+	background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6));
+}
+
+/* Search Field */
+
+.search-container{
+	position: relative;
+}
+.search-result {
+    position: absolute;
+    background: gray;
+    width: 100%;
+    max-height: 200px; /* Set the maximum height for the list */
+    overflow-y: auto; /* Enable vertical scrolling */
+    padding: 2px;
+    border: solid;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+	display: none;
+}
+
+.list-group {
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+}
+
+.list-group-item {
+    display: block;
+    width: 100%;
+    text-align: left;
+    border: none;
+    border-bottom: 1px solid #ccc; /* Add a border between items */
+	color: gray;
+}
 
 
 
-
-
-
-
-
+.dropdown-menu {
+	background-color: #284b63;
+	color: gray;
+}

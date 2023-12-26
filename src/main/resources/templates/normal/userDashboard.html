@@ -1,14 +1,66 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  th:replace="~{normal/base::layout(~{::section})}"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DashBoard</title>
-</head>
-<body>
-	
-	<h1>Welcome, You are a normal user.</h1>
-	<p>This is your private DashBoard</p>
-    
-</body>
+  </head>
+  <body>
+    <section>
+      <div id="card" class="container card">
+        <div class="row justify-content-center">
+          <div class="col-md-8">
+            <div id="card" class="card">
+              <div class="card-header text-center">
+                <img
+                  src=""
+                  style="width: 50%; margin-bottom: -10%"
+                  th:src="@{'/img/logo-white-removebg-preview.png'}"
+                  alt="Logo"
+                  class="img-fluid"
+                />
+                <h1 style="color: rgb(148, 148, 148); font-size: 1.8em; margin-bottom: -20px; font-family: cursive;">
+                  <em> Empower Your Connections with </em>
+                </h1>
+                <h1
+                  style="
+                    color: #3498db;
+                    font-size: 3.5em;
+                    margin-top: 50px;
+                    letter-spacing: 2px;
+                    padding: 10px;
+                    border: 2px solid #3498db;
+                    display: inline-block;
+                  "
+                >
+                  Smart Contact Manager
+                </h1>
+                <h4
+                  style="
+                    color: rgb(148, 148, 148);
+                    font-size: 1.8em;
+                    margin-top: 20px;
+                    margin: 0;
+                    margin-bottom: 50px;
+                    font-family: cursive;
+                  "
+                >
+                  <em> Your Personalized Cloud Contact Storage Solution </em>
+                </h4>
+              </div>
+              <div class="card-header text-center">
+                <a th:href="@{/user/addContact}"><button class="btn btn-primary ml-2 rounded" type="button">
+					<i class="fa-solid fa-user-plus"> </i> Add Contact
+                </button></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
 </html>

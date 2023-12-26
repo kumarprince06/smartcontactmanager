@@ -15,16 +15,17 @@
 					<div class="my-card mt-4">
 
 						<div class="container text-center">
-							<img style="width: 15%;" th:src="@{/img/logo.png}" alt="Logo">
+							<img style="width: 14%;" th:src="@{/img/logo.png}" alt="Logo">
 						</div>
 
 						<!--<h1 class="text-center font-weight-bold">Smart Contact Manager</h1>-->
-						<h1 class="text-center">Sign Up</h1>
+						<h2 class="text-center">Sign Up</h2>
 						<!--Alert Section-->
 						<div th:if="${session.message}" th:classappend="${session.message.type}" class="alert"
 							role="alert">
 							<p class="text-center" th:text="${session.message.content}"></p>
 							<!--<th:block  th:text="${session.message.content}" ></th:block>-->
+							<th:block th:text="${@sessionHelper.removeMessageFromSession()}"></th:block>
 						</div>
 						<form novalidate th:action="@{do_register}" method="post" th:object="${user}">
 							<!--Name field-->
@@ -66,7 +67,7 @@
 							</div>
 							<!--Text Field-->
 							<div class="form-group">
-								<textarea placeholder="Enter Something About Yourself" rows="4"
+								<textarea placeholder="Enter Something About Yourself" rows="3"
 									class="form-control" th:classappend="${#fields.hasErrors('about') ? 'is-invalid' : ''}" name="about" required
 									th:text="${user.about}"></textarea>
 								<div class="invalid-feedback" th:each="errorAbout : ${#fields.errors('about')}" th:text="${errorAbout}">
@@ -96,7 +97,6 @@
 
 				</div>
 			</div>
-		</div>
 		</div>
 	</section>
 
