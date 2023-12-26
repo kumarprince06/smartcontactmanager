@@ -15,6 +15,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -39,6 +40,9 @@ import jakarta.validation.Valid;
 @RequestMapping("/user")
 public class UserController {
 
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	
 	@Autowired
 	private UserRepository userRepository;
 
@@ -330,12 +334,57 @@ public class UserController {
 	 * Process Profile Update Handler
 	 * 
 	 */
-	@PostMapping("/processProfile")
-	public String processProfileUpdate(@Valid @ModelAttribute("user") User user,
-			@RequestParam("image") MultipartFile imageFile, BindingResult result, Model model, HttpSession session,
-			Principal principal) {
+//	@PostMapping("/processProfile")
+//	public String processProfileUpdate(@Valid @ModelAttribute("user") User user,
+//			@RequestParam("image") MultipartFile imageFile, BindingResult result, Model model, HttpSession session,
+//			Principal principal) {
+//
+//		return "";
+//	}
 
-		return "";
+//	Change Password Handler
+	@GetMapping("/changePassword")
+	public String changePassword(Model model) {
+
+		model.addAttribute("title", "Change Password");
+		return "normal/changePassword";
+	}
+
+	// Chnage Password Setting Handler
+	@PostMapping("/changeSetting")
+	public String changePasswordSetting(@RequestParam("oldPassword") String oldPassword,
+			@RequestParam("newPassword") String newPassword, Model model, Principal principal, HttpSession session) {
+		
+		//Form Password
+		System.out.println("Old Password: "+oldPassword);
+		System.out.println("New Password: "+newPassword);
+		
+		// Database Password
+//		String userName = principal.getName();
+		User user = this.userRepository.getUserByUserName(principal.getName());
+		
+		String storePassword = user.getPassword();
+		
+		System.out.println("Database Password: "+storePassword);
+		
+		if (this.bCryptPasswordEncoder.matches(oldPassword, storePassword)) {
+			//change the password
+			user.setPassword(this.bCryptPasswordEncoder.encode(newPassword));
+			this.userRepository.save(user);
+			
+			session.setAttribute("message", new Message("Password successfully changed..!", "alert-success"));
+			return "redirect:/user/index";
+		}else {
+			//error 
+			
+			model.addAttribute("title", "Change Password");
+			session.setAttribute("message", new Message("Wrong Old Password..!", "alert-danger"));
+			return "/normal/changePassword"; 
+			
+		}
+		
+//		model.addAttribute("title", "DashBoard");
+		
 	}
 
 	// Method to generate unique name of the user
@@ -353,7 +402,5 @@ public class UserController {
 
 		return uniqueFileName;
 	}
-
-	
 
 }
