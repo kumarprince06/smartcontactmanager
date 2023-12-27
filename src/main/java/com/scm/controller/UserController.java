@@ -42,7 +42,7 @@ public class UserController {
 
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
-	
+
 	@Autowired
 	private UserRepository userRepository;
 
@@ -321,12 +321,13 @@ public class UserController {
 
 	@RequestMapping("/updateProfile")
 	public String profileUpdate(Model model, Principal principal) {
-		// String email = principal.getName();
-		// User user = this.userRepository.getUserByUserName(email);
-		// System.out.println(user.getUserId());
-		// System.out.println(user.getUserName());
+
+		User user = this.userRepository.getUserByUserName(principal.getName());
+		System.out.println(user.getUserId());
+		System.out.println(user.getUserName());
 
 		model.addAttribute("title", "Update Profile");
+		model.addAttribute("user", user);
 		return "/normal/updateProfile";
 	}
 
@@ -334,13 +335,63 @@ public class UserController {
 	 * Process Profile Update Handler
 	 * 
 	 */
-//	@PostMapping("/processProfile")
-//	public String processProfileUpdate(@Valid @ModelAttribute("user") User user,
-//			@RequestParam("image") MultipartFile imageFile, BindingResult result, Model model, HttpSession session,
-//			Principal principal) {
-//
-//		return "";
-//	}
+
+	@PostMapping("/processUpdateProfile")
+	public String updateProfile(@Valid @ModelAttribute("user") User user,
+			@RequestParam("profileImage") MultipartFile profileImage, BindingResult result,Model model, 
+			HttpSession session, Principal principal) {
+
+		try {
+			
+			if (result.hasErrors()) {
+				model.addAttribute("user", user);
+				System.out.println("Error: " + result.toString());
+				return "/normal/updateProfile";
+			}
+			User oldUser = this.userRepository.getUserByUserName(principal.getName());
+			if(!profileImage.isEmpty()) {
+				
+				
+				if (!oldUser.getImage().equals("default.png")) {
+					File path1 = new ClassPathResource("static/img").getFile();
+					System.out.println("Image name: " + oldUser.getImage());
+					File file1 = new File(path1, oldUser.getImage());
+					file1.delete();
+					System.out.println("Old Image Deleted..!" + oldUser.getImage());
+				}
+				
+				String fileName = profileImage.getOriginalFilename();
+				String newFileName = generateUniqueFileName(fileName); // Method to generate unique file name
+				System.out.println("Upload Image Original name:" + fileName);
+				System.out.println("Upload Image Generated name:" + newFileName);
+				user.setImage(newFileName);
+				File file = new ClassPathResource("static/img").getFile();
+				Path path = Paths.get(file.getAbsolutePath() + file.separator + newFileName);
+				Files.copy(profileImage.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+				System.out.println("Image Uploaded..!!");
+
+
+				
+
+			}else {
+				user.setImage(oldUser.getImage());
+			}
+			
+			this.userRepository.save(user);
+			System.out.println("Profile Updated.");
+			session.setAttribute("message", new Message("Profile Updated ..!!", "alert-success"));
+			
+			return "redirect:/user/profile";
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("Error: " + e.getMessage());
+			session.setAttribute("message", new Message("Something went wrong..!!", "alert-danger"));
+			// session.removeAttribute("message");
+			model.addAttribute(user);
+			return "redirect:/user/updateProfile";
+		}
+
+	}
 
 //	Change Password Handler
 	@GetMapping("/changePassword")
@@ -354,37 +405,37 @@ public class UserController {
 	@PostMapping("/changeSetting")
 	public String changePasswordSetting(@RequestParam("oldPassword") String oldPassword,
 			@RequestParam("newPassword") String newPassword, Model model, Principal principal, HttpSession session) {
-		
-		//Form Password
-		System.out.println("Old Password: "+oldPassword);
-		System.out.println("New Password: "+newPassword);
-		
+
+		// Form Password
+		System.out.println("Old Password: " + oldPassword);
+		System.out.println("New Password: " + newPassword);
+
 		// Database Password
 //		String userName = principal.getName();
 		User user = this.userRepository.getUserByUserName(principal.getName());
-		
+
 		String storePassword = user.getPassword();
-		
-		System.out.println("Database Password: "+storePassword);
-		
+
+		System.out.println("Database Password: " + storePassword);
+
 		if (this.bCryptPasswordEncoder.matches(oldPassword, storePassword)) {
-			//change the password
+			// change the password
 			user.setPassword(this.bCryptPasswordEncoder.encode(newPassword));
 			this.userRepository.save(user);
-			
+
 			session.setAttribute("message", new Message("Password successfully changed..!", "alert-success"));
 			return "redirect:/user/index";
-		}else {
-			//error 
-			
+		} else {
+			// error
+
 			model.addAttribute("title", "Change Password");
 			session.setAttribute("message", new Message("Wrong Old Password..!", "alert-danger"));
-			return "/normal/changePassword"; 
-			
+			return "/normal/changePassword";
+
 		}
-		
+
 //		model.addAttribute("title", "DashBoard");
-		
+
 	}
 
 	// Method to generate unique name of the user

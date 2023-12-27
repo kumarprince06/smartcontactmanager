@@ -9,10 +9,91 @@
 
 <body>
 
-	<section>
-		<h1>
-			This is a Prfofile edit page.
-		</h1>
+	<section class="mt-5">
+		<div class="card mr-4 ml-4">
+			<div class="cardBody">
+				<div class="text-center mt-1">
+					<h1><i class="fa-solid fa-pen-to-square"></i></i></h1>
+					<h1>Update Profile</h1>
+				</div>
+				<div class="container-fluid mt-1 mr-6 ml-6">
+					<div class="row">
+						<div class="col-md-8 offset-md-2">
+							<form novalidate method="post" th:action="@{/user/processUpdateProfile}" class="mt-2" th:object="${user}"
+								enctype="multipart/form-data" >
+								
+								<input th:value="${user.userId}" type="hidden" id="userId" name="userId" placeholder="Enter Full Name here.."
+										class="form-control">
+								<!-- Full Name Field  -->
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<div class="input-group-text ">
+											<i class="fa-regular fa-id-badge"></i>
+										</div>
+									</div>
+									<input th:value="${user.userName}" type="userName" id="name" name="userName" placeholder="Enter Full Name here.."
+										class="form-control"
+										th:classappend="${#fields.hasErrors('userName') ? 'is-invalid' : ''}">
+									<div class="invalid-feedback" th:each="errorName : ${#fields.errors('userName')}"
+										th:text="${errorName}">
+
+									</div>
+								</div>
+
+
+								<!-- Email Field -->
+								<div class="input-group mt-3">
+									<div class="input-group-prepend">
+										<div class="input-group-text ">
+											<i class="fa-regular fa-envelope"></i>
+										</div>
+									</div>
+									<input th:value="${user.email}" type="email" id="email" name="email" placeholder="Enter Email here.."
+										class="form-control"
+										th:classappend="${#fields.hasErrors('email') ? 'is-invalid' : ''}">
+									<div class="invalid-feedback" th:each="errorEmail : ${#fields.errors('email')}"
+										th:text="${errorEmail}">
+
+									</div>
+								</div>
+
+								
+
+								
+
+								<!-- About Field -->
+
+								<div class="form-group mt-3">
+									<textarea th:text="${user.about}" name="description" id="about" class="form-control" rows="4"
+										placeholder="Enter Description here.."
+										th:classappend="${#fields.hasErrors('about') ? 'is-invalid' : ''}"></textarea>
+									<div class="invalid-feedback"
+										th:each="errorDescription : ${#fields.errors('about')}"
+										th:text="${errorDescription}">
+
+									</div>
+								</div>
+
+								<!-- Image Field -->
+								<div class="container">
+									<img style="width: 10%;" class="img-fluid rounded" th:src="@{'/img/'+${user.image}}" alt="Image">
+								</div>
+								
+								<div class="custom-file mt-3">
+									<input type="file" id="profileImage" name="profileImage" class="form-control-file"
+										accept="image/png, image/jpeg, image/jpg">
+								</div>
+
+								<div class="container text-center mt-2">
+									<button class="btn btn-outline-primary" type="submit">Update</button>
+								</div>
+
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</section>
 </body>
 
