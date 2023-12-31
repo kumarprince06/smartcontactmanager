@@ -38,11 +38,12 @@
 								<div class="form-group">
 									<label for="remember-me" ><span>Remember me</span> <span><input
 												id="remember-me" name="remember-me" type="checkbox"></span></label><br>
-									<input type="submit" name="submit" class="btn btn-info btn-md" value="submit">
+									<button type="submit" name="submit" class="btn btn-primary btn-md" value="submit">Submit</button>
 								</div>
 								<div id="register-link" class="text-right">
 									<p>Don't have an account?<a th:href="@{/signup}" > Sign Up</a></p>
-								</div>
+									<p><a th:href="@{/forgotPassword}" > Forgot Password?</a></p>
+								</div>	
 							</form>
 						</div>
 					</div>

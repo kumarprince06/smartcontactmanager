@@ -66,7 +66,6 @@ public class UserController {
 	public String dashboeard(Model model, Principal principal) {
 
 		model.addAttribute("title", "Dashboard - Smart Contact Manager");
-
 		return "normal/userDashboard";
 	}
 

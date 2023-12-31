@@ -16,12 +16,11 @@
 					<h1>New Contact</h1>
 				</div>
 				<div class="contactiner col-md-8 offset-md-2 text-center">
-				<div th:if="${session.message}" th:classappend="${session.message.type}" class="alert"
-					role="alert">
-					<th:block  th:text="${session.message.content}" ></th:block>					
-				</div>
-				<!--<th:block th:text="${#session.removeAttribute('message')}"></th:block>-->
-				<th:block th:text="${@sessionHelper.removeMessageFromSession()}"></th:block>
+					<div th:if="${session.message}" th:classappend="${session.message.type}" class="alert" role="alert">
+						<th:block th:text="${session.message.content}"></th:block>
+					</div>
+					<!--<th:block th:text="${#session.removeAttribute('message')}"></th:block>-->
+					<th:block th:text="${@sessionHelper.removeMessageFromSession()}"></th:block>
 				</div>
 
 				<div class="container-fluid mt-1 mr-6 ml-6">
@@ -55,7 +54,8 @@
 									<input type="text" id="nickName" name="nickName" placeholder="Enter Nickname here.."
 										class="form-control"
 										th:classappend="${#fields.hasErrors('nickName') ? 'is-invalid' : ''}">
-									<div class="invalid-feedback" th:each="errornickname : ${#fields.errors('nickName')}"
+									<div class="invalid-feedback"
+										th:each="errornickname : ${#fields.errors('nickName')}"
 										th:text="${errornickname}">
 
 									</div>
@@ -112,10 +112,11 @@
 								<!-- Description Field -->
 
 								<div class="form-group mt-3">
-									<textarea name="description" id="description" class="form-control" rows="4"
+									<textarea name="description" id="description" class="form-control" rows="2"
 										placeholder="Enter Description here.."
 										th:classappend="${#fields.hasErrors('work') ? 'is-invalid' : ''}"></textarea>
-									<div class="invalid-feedback" th:each="errorDescription : ${#fields.errors('description')}"
+									<div class="invalid-feedback"
+										th:each="errorDescription : ${#fields.errors('description')}"
 										th:text="${errorDescription}">
 
 									</div>
@@ -124,7 +125,7 @@
 								<!-- Image Field -->
 								<div class="custom-file mt-3">
 									<input type="file" id="imageUrl" name="profileImage" class="form-control-file"
-									accept="image/png, image/jpeg, image/jpg">
+										accept="image/png, image/jpeg, image/jpg">
 								</div>
 
 								<div class="container text-center mt-2">
@@ -138,11 +139,11 @@
 			</div>
 		</div>
 		<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-		<!--<script>
-      tinymce.init({
-        selector: '#description'
-      });
-    </script>-->
+		<script>
+			tinymce.init({
+				selector: '#description'
+			});
+		</script>
 	</section>
 </body>
 

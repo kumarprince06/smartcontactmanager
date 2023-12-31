@@ -22,10 +22,13 @@
 					<!--<th:block th:text="${#session.removeAttribute('message')}"></th:block>-->
 					<th:block th:text="${@sessionHelper.removeMessageFromSession()}"></th:block>
 				</div>
+				<div class="Welcome mt-1">
+					<h1 th:text="'Welcome, ' + ${user.userName}"></h1>
+				</div>
               <div class="card-header text-center">
                 <img
                   src=""
-                  style="width: 50%; margin-bottom: -10%"
+                  style="width: 45%; margin-bottom: -10%"
                   th:src="@{'/img/logo-white-removebg-preview.png'}"
                   alt="Logo"
                   class="img-fluid"
@@ -37,7 +40,7 @@
                   style="
                     color: #3498db;
                     font-size: 3.5em;
-                    margin-top: 50px;
+                    margin-top: 40px;
                     letter-spacing: 2px;
                     padding: 10px;
                     border: 2px solid #3498db;

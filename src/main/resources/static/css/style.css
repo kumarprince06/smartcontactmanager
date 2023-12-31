@@ -27,7 +27,7 @@ body{
 }
 
 .my-card input, .my-card textarea {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.8);
     border: 1px solid #ced4da; 
 }
 
